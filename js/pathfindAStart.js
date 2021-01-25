@@ -26,6 +26,18 @@ class Spot {
     }
 }
 
+const sleep = (milliseconds) => {
+    return new Promise(resolve => setTimeout(resolve, milliseconds))
+  }
+
+const drawItself = async (arr,classname) => {
+    for (let i = 0; i < arr.length; i++) {
+        let div = document.getElementById(`${arr[i].i}_${arr[i].j}`)
+        div.classList.toggle(classname)
+        await sleep(50)
+    }
+}
+
 function pathfindAStar() {
     function heuristic(actualPos, end) {
         let result = Math.abs(actualPos.i - end.i) + Math.abs(actualPos.j - end.j)
@@ -37,13 +49,6 @@ function pathfindAStar() {
             if (arr[i] === elt) {
                 arr.splice(i, 1)
             }
-        }
-    }
-
-    function drawItself(arr,classname) {
-        for (let i = 0; i < arr.length; i++) {
-            let div = document.getElementById(`${arr[i].i}_${arr[i].j}`)
-            div.classList.toggle(classname)
         }
     }
 
@@ -81,7 +86,6 @@ function pathfindAStar() {
     let temp
 
     while (openSet.length > 0) {
-        console.log(openSet[0])
         
         let winner = 0
         for (let i = 0; i < openSet.length; i++) {
@@ -94,8 +98,6 @@ function pathfindAStar() {
 
         temp = current
         if (current === endObj) {
-            console.log(current)
-            console.log('DONE')
             break
             
         }
@@ -137,8 +139,5 @@ function pathfindAStar() {
     }
 
     drawItself(path, 'openSet')
-
-
-    console.log(endObj)
 
 }
